@@ -5,7 +5,8 @@ import org.specs2.mutable._
 class BotSpec extends Specification {
 
   /*
-   * React(generation=int,name=string,time=int,view=string,energy=string,master=int:int,collision=int:int,slaves=int,...)
+   * React(generation=int,name=string,time=int,
+   * 	view=string,energy=string,master=int:int,collision=int:int,slaves=int,...)
    */
   def getViewStr(rowLength: Int) = "_" * rowLength * rowLength
 
@@ -34,6 +35,24 @@ class BotSpec extends Specification {
   "Absolute position" should {
     "equal (2, 3)" in {
       getView(5).absPosFromIndex(17) must beEqualTo(Xy(2, 3))
+    }
+  }
+
+  "Absolute position" should {
+    "equal (3, 1)" in {
+      getView(5).absPosFromRelPos(Xy(1, -1)) must beEqualTo(Xy(3, 1))
+    }
+  }
+
+  "View index" should {
+    "equal 16" in {
+      getView(5).indexFromRelPos(Xy(-1, 1)) must beEqualTo(16)
+    }
+  }
+
+  "Relative position" should {
+    "equal (0, 2)" in {
+      getView(5).relPosFromAbsPos(Xy(2, 4)) must beEqualTo(Xy(0, 2))
     }
   }
 }
