@@ -4,9 +4,13 @@ import org.specs2.mutable._
 
 class ViewSpec extends Specification with ViewHelper {
 
+  val plant = 'P'
+
   def standardView = view(7)
 
   def view(rowLength: Int) = View(viewStr(rowLength))
+
+  def plantAtIndex(index: Int) = viewStr(5).patch(index, "P", 1)
 
   "View size" should {
     "equal 7" in {
@@ -39,9 +43,8 @@ class ViewSpec extends Specification with ViewHelper {
   }
 
   "Cell at absolute position" should {
-    "contain 'P'" in {
-      val viewString = viewStr(5).patch(6, "P", 1)
-      View(viewString).cellAtAbsPos(Xy(1, 1)) must beEqualTo('P')
+    "contain a plant" in {
+      View(plantAtIndex(6)).cellAtAbsPos(Xy(1, 1)) must beEqualTo(plant)
     }
   }
 
@@ -64,9 +67,14 @@ class ViewSpec extends Specification with ViewHelper {
   }
 
   "Cell at relative position" should {
-    "contain 'P'" in {
-      val viewString = viewStr(5).patch(6, "P", 1)
-      View(viewString).cellAtRelPos(Xy(-1, -1)) must beEqualTo('P')
+    "contain a plant" in {
+      View(plantAtIndex(6)).cellAtRelPos(Xy(-1, -1)) must beEqualTo(plant)
+    }
+  }
+
+  "Offset to nearest plant" should {
+    "be (-1, -1)" in {
+      View(plantAtIndex(6)).offsetToNearest('P') must beEqualTo(Some(Xy(-1, -1)))
     }
   }
 }
