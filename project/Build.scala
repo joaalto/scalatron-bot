@@ -31,7 +31,6 @@ object Build extends Build {
       "junit" % "junit" % "4.7" % "test"),
 
     testOptions := Seq(
-      Tests.Filter(_ == "scalatron.botwar.botPlugin.BotSpec"),
       Tests.Argument("html", "console")),
 
     testOptions <+= crossTarget map { ct =>
