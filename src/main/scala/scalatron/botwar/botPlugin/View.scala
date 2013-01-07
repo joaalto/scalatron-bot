@@ -1,5 +1,18 @@
 package scalatron.botwar.botPlugin
 
+object View {
+  val Zugar = 'P'
+  val Toxifera = 'p'
+  val Fluppet = 'B'
+  val Zorg = 'b'
+}
+
+/**
+ * The view string forms a square.
+ * Absolute position is calculated relative to the top left corner,
+ * and relative position is calculated similarly relative to the bot
+ * in the center of the view.
+ */
 case class View(cells: String) {
   val size = math.sqrt(cells.length()).intValue
   val center = Xy(size / 2, size / 2)
@@ -15,7 +28,7 @@ case class View(cells: String) {
   def relPosFromIndex(index: Int) = relPosFromAbsPos(absPosFromIndex(index))
   def cellAtRelPos(relPos: Xy) = cells.charAt(indexFromRelPos(relPos))
 
-  def offsetToNearest(c: Char) = {
+  def offsetToNearest(c: Char): Option[Xy] = {
     val relativePositions =
       cells
         .view

@@ -16,14 +16,15 @@ class Bot() {
   // this method is invoked by the game server to interact with the plug-in.
   // The input will be a string of the format "Opcode(param=value,param=value,...)"
   // The output must be a string that is empty or also "Opcode(param=value,param=value,...)"
-
   def n = 0
 
   def respond(input: String): String = {
     val (opcode, paramMap) = CommandParser(input)
+
     if (opcode.equals("React")) {
       val view = View(paramMap("view"))
-      view.offsetToNearest('P') match {
+
+      view.offsetToNearest(View.Zugar) match {
         case Some(offset) =>
           val unitOffset = offset.signum
           "Move(direction=" + unitOffset.x + ":" + unitOffset.y + ")"
@@ -39,38 +40,4 @@ class Bot() {
 }
 
 //"React(entity=string,time=int,view=string,energy=int,dx=int,dy=int)"
-object CommandParser {
-  def apply(command: String) = {
-    val tokens = command.split('(')
-    val opcode = tokens(0)
-    val paramMap = tokens(1).dropRight(1).split(',')
-      .map(_.split('='))
-      .map(a => (a(0), a(1)))
-      .toMap
 
-    (opcode, paramMap)
-  }
-}
-
-case class Xy(x: Int, y: Int) {
-  def +(other: Xy) = new Xy(x + other.x, y + other.y)
-  def -(other: Xy) = new Xy(x - other.x, y - other.y)
-
-  def distanceTo(pos: Xy): Double = (this - pos).length
-  def length: Double = math.sqrt(x * x + y * y)
-
-  def signum = Xy(x.signum, y.signum)
-
-}
-
-object Xy {
-  val zero = Xy(0, 0)
-
-  val nortEast = Xy(1, -1)
-  val east = Xy(1, 0)
-  val southEast = Xy(1, 1)
-  val south = Xy(0, 1)
-  val southWest = Xy(-1, 1)
-  val west = Xy(-1, 0)
-  val northWest = Xy(-1, -1)
-}
