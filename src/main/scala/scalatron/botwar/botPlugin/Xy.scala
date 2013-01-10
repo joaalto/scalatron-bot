@@ -1,4 +1,5 @@
 package scalatron.botwar.botPlugin
+import scala.util.Random
 
 case class Xy(x: Int, y: Int) {
   def +(other: Xy) = new Xy(x + other.x, y + other.y)
@@ -27,6 +28,13 @@ object Xy {
     east,
     south,
     west)
+
+  def random() = {
+    val random = new Random()
+    val x = random.nextInt(3) - 1
+    val y = random.nextInt(3) - 1
+    Xy(x, y)
+  }
 
   def next(xy: Xy) = {
     println("  " + xy + " " + directions.indexOf(xy))
