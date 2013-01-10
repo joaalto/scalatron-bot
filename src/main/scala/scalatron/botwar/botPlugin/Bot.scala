@@ -27,12 +27,14 @@ class Bot() {
       view.offsetToNearest(View.Zugar) match {
         case Some(offset) =>
           val unitOffset = offset.signum
-          "Move(direction=" + unitOffset.x + ":" + unitOffset.y + ")"
+          move(unitOffset)
         case None =>
-          ""
+          move(Xy.south)
       }
     } else ""
   }
+
+  def move(xy: Xy) = "Move(direction=" + xy.x + ":" + xy.y + ")"
 
   def parse(command: String) = {
   }

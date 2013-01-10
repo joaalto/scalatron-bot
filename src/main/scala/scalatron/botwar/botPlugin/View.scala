@@ -28,12 +28,12 @@ case class View(cells: String) {
   def relPosFromIndex(index: Int) = relPosFromAbsPos(absPosFromIndex(index))
   def cellAtRelPos(relPos: Xy) = cells.charAt(indexFromRelPos(relPos))
 
-  def offsetToNearest(c: Char): Option[Xy] = {
+  def offsetToNearest(target: Char): Option[Xy] = {
     val relativePositions =
       cells
         .view
         .zipWithIndex
-        .filter(_._1 == c)
+        .filter(_._1 == target)
         .map(p => relPosFromIndex(p._2))
     if (relativePositions.isEmpty)
       None
