@@ -1,17 +1,11 @@
 package scalatron.botwar.botPlugin
 import org.specs2.mutable.Specification
 
-class CommandParserSpec extends Specification with ViewHelper {
+class CommandParserSpec
+  extends Specification
+  with CommandHelper {
 
-  /*
-   * React(generation=int,name=string,time=int,
-   * 	view=string,energy=string,master=int:int,collision=int:int,slaves=int,...)
-   */
-
-  def getCommand(viewRowLength: Int) = "React(generation=0,name=mybot,time=5,view=" +
-    viewStr(viewRowLength) + ")"
-
-  val (opcode, paramMap) = CommandParser(getCommand(5))
+  val (opcode, paramMap) = CommandParser(command(5))
 
   "Server input" should {
     "contain opcode" in {

@@ -10,8 +10,6 @@ class ViewSpec extends Specification with ViewHelper {
 
   def view(rowLength: Int) = View(viewStr(rowLength))
 
-  def plantAtIndex(index: Int) = viewStr(5).patch(index, "P", 1)
-
   "View size" should {
     "equal 7" in {
       standardView.size must beEqualTo(7)
