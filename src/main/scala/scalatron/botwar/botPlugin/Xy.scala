@@ -13,11 +13,28 @@ case class Xy(x: Int, y: Int) {
 object Xy {
   val zero = Xy(0, 0)
 
-  val nortEast = Xy(1, -1)
+  val north = Xy(0, -1)
+  val northEast = Xy(1, -1)
   val east = Xy(1, 0)
   val southEast = Xy(1, 1)
   val south = Xy(0, 1)
   val southWest = Xy(-1, 1)
   val west = Xy(-1, 0)
   val northWest = Xy(-1, -1)
+
+  val directions = Seq(
+    north,
+    east,
+    south,
+    west)
+
+  def next(xy: Xy) = {
+    println("  " + xy + " " + directions.indexOf(xy))
+    if (xy.equals(west) || directions.indexOf(xy) == -1)
+      north
+    else {
+      directions(directions.indexOf(xy) + 1)
+    }
+  }
+
 }

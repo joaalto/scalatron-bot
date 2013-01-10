@@ -69,4 +69,5 @@ class ViewSpec extends Specification with ViewHelper {
       View(plantAtIndex(6)).offsetToNearest('P') must beEqualTo(Some(Xy(-1, -1)))
     }
   }
+
 }

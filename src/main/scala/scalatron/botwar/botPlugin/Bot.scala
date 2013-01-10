@@ -22,24 +22,28 @@ class Bot() {
     val (opcode, paramMap) = CommandParser(input)
 
     if (opcode.equals("React")) {
-      val view = View(paramMap("view"))
+      approachTarget(View(paramMap("view")))
 
-      view.offsetToNearest(View.Zugar) match {
-        case Some(offset) =>
-          val unitOffset = offset.signum
-          move(unitOffset)
-        case None =>
-          move(Xy.south)
-      }
     } else ""
   }
 
-  def move(xy: Xy) = "Move(direction=" + xy.x + ":" + xy.y + ")"
+  def approachTarget(view: View) =
+    view.offsetToNearest(View.Zugar) match {
+      case Some(offset) =>
+        println("Approaching.")
+        move(offset.signum, view)
+      case None =>
+        move(Xy.north, view)
+    }
 
-  def parse(command: String) = {
+  def move(xy: Xy, view: View): String = {
+    println("Move: %s".format(xy))
+    if (view.cellAtRelPos(xy) == View.Wall) {
+      println("  Wall at " + xy)
+      move(Xy.next(xy), view)
+    } else {
+      "Move(direction=%s:%s)".format(xy.x, xy.y)
+    }
   }
 
 }
-
-//"React(entity=string,time=int,view=string,energy=int,dx=int,dy=int)"
-

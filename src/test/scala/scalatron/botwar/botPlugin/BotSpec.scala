@@ -1,5 +1,6 @@
 package scalatron.botwar.botPlugin
 import org.specs2.mutable.Specification
+import org.specs2.matcher.MustMatchers
 
 class BotSpec extends Specification with CommandHelper {
 
@@ -17,6 +18,10 @@ class BotSpec extends Specification with CommandHelper {
     "respond by moving south" in {
       mybot.respond(command(5)) must
         beEqualTo("Move(direction=0:1)")
+    }
+    "avoid a wall" in {
+      val view = viewStr(5).patch(16, "WWWWWW", 6)
+      mybot.respond(command(view)) !== ("Move(direction=0:1)")
     }
   }
 

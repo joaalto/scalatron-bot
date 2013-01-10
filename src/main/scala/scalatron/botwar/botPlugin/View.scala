@@ -5,6 +5,7 @@ object View {
   val Toxifera = 'p'
   val Fluppet = 'B'
   val Zorg = 'b'
+  val Wall = 'W'
 }
 
 /**
@@ -29,15 +30,18 @@ case class View(cells: String) {
   def cellAtRelPos(relPos: Xy) = cells.charAt(indexFromRelPos(relPos))
 
   def offsetToNearest(target: Char): Option[Xy] = {
+
     val relativePositions =
       cells
         .view
         .zipWithIndex
         .filter(_._1 == target)
         .map(p => relPosFromIndex(p._2))
+
     if (relativePositions.isEmpty)
       None
     else
       Some(relativePositions.minBy(_.length))
   }
+
 }
