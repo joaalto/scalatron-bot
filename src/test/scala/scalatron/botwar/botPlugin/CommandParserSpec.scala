@@ -9,6 +9,22 @@ class CommandParserSpec extends Specification with ViewHelper {
    */
 
   def getCommand(viewRowLength: Int) = "React(generation=0,name=mybot,time=5,view=" +
-    viewStr(viewRowLength) + ",energy=1000,collision=int:int,slaves=int,...)"
+    viewStr(viewRowLength) + ")"
 
+  val (opcode, paramMap) = CommandParser(getCommand(5))
+
+  "Server input" should {
+    "contain opcode" in {
+      opcode must beEqualTo("React")
+    }
+    "contain bot name" in {
+      paramMap("name") must beEqualTo("mybot")
+    }
+    "contain time" in {
+      paramMap("time") must beEqualTo("5")
+    }
+    "contain view" in {
+      paramMap("view") must beEqualTo(viewStr(5))
+    }
+  }
 }
