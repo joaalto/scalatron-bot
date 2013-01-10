@@ -34,9 +34,6 @@ class ViewSpec extends Specification with ViewHelper {
     "equal (2, 3)" in {
       view(5).absPosFromIndex(17) must beEqualTo(Xy(2, 3))
     }
-  }
-
-  "Absolute position" should {
     "equal (3, 1)" in {
       view(5).absPosFromRelPos(Xy(1, -1)) must beEqualTo(Xy(3, 1))
     }
@@ -58,9 +55,6 @@ class ViewSpec extends Specification with ViewHelper {
     "equal (0, 2)" in {
       view(5).relPosFromAbsPos(Xy(2, 4)) must beEqualTo(Xy(0, 2))
     }
-  }
-
-  "Relative position" should {
     "equal (2, 1)" in {
       view(5).relPosFromIndex(19) must beEqualTo(Xy(2, 1))
     }
