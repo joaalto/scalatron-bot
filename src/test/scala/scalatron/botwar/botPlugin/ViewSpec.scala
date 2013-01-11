@@ -70,4 +70,11 @@ class ViewSpec extends Specification with ViewHelper {
     }
   }
 
+  "Offset to nearest food item" should {
+    "be (-1, -1)" in {
+      val view = plantAtIndex(6).patch(23, "B", 1)
+      View(view).offsetToNearestFood must beEqualTo(Some(Xy(-1, -1)))
+    }
+  }
+
 }

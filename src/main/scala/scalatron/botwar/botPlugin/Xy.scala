@@ -1,7 +1,8 @@
 package scalatron.botwar.botPlugin
 import scala.util.Random
+import scala.math.Ordered
 
-case class Xy(x: Int, y: Int) {
+case class Xy(x: Int, y: Int) extends Ordered[Xy] {
   def +(other: Xy) = new Xy(x + other.x, y + other.y)
   def -(other: Xy) = new Xy(x - other.x, y - other.y)
 
@@ -9,6 +10,8 @@ case class Xy(x: Int, y: Int) {
   def length: Double = math.sqrt(x * x + y * y)
 
   def signum = Xy(x.signum, y.signum)
+
+  def compare(other: Xy) = distanceTo(this).compare(distanceTo(other))
 }
 
 object Xy {

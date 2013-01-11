@@ -7,6 +7,7 @@ object View {
   val Zorg = 'b'
   val Wall = 'W'
 
+  val food = Seq(Zugar, Fluppet)
   val obstacles = Seq(Zorg, Wall)
 }
 
@@ -34,7 +35,17 @@ case class View(cells: String) {
   def cellContainsObstacle(relPos: Xy) =
     View.obstacles.exists(_ == cellAtRelPos(relPos))
 
+  def offsetToNearestFood: Option[Xy] = {
+    println("Visible food items: " + View.food.map(offsetToNearest(_)))
+
+    val items = View.food.flatMap(offsetToNearest(_))
+    if (items.nonEmpty)
+      Option(items.minBy(_.length))
+    else None
+  }
+
   def offsetToNearest(target: Char): Option[Xy] = {
+    println("Target: " + target)
 
     val relativePositions =
       cells

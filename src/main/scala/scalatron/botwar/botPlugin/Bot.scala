@@ -28,7 +28,7 @@ class Bot() {
   }
 
   def approachTarget(view: View) =
-    view.offsetToNearest(View.Zugar) match {
+    view.offsetToNearestFood match {
       case Some(offset) =>
         println("Approaching.")
         move(offset.signum, view)
@@ -38,11 +38,11 @@ class Bot() {
 
   def move(xy: Xy, view: View): String = {
     println("Move: %s".format(xy))
-    if (view.cellContainsObstacle(xy)) {
+
+    if (view.cellContainsObstacle(xy))
       move(Xy.next(xy), view)
-    } else {
+    else
       "Move(direction=%s:%s)".format(xy.x, xy.y)
-    }
   }
 
 }
