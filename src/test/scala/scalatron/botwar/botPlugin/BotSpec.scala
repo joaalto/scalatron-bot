@@ -15,10 +15,6 @@ class BotSpec extends Specification with CommandHelper {
       mybot.respond(command(plantAtIndex(18))) must
         beEqualTo("Move(direction=1:1)")
     }
-    "respond by moving south" in {
-      mybot.respond(command(5)) must
-        beEqualTo("Move(direction=0:1)")
-    }
     "avoid a wall" in {
       val view = viewStr(5).patch(16, "WWWWWW", 6)
       mybot.respond(command(view)) !== ("Move(direction=0:1)")
