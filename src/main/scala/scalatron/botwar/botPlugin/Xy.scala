@@ -14,7 +14,7 @@ case class Xy(x: Int, y: Int) extends Ordered[Xy] {
   def compare(other: Xy) = distanceTo(this).compare(distanceTo(other))
 }
 
-object Xy {
+object Xy extends Logging {
   val zero = Xy(0, 0)
 
   val north = Xy(0, -1)
@@ -40,7 +40,6 @@ object Xy {
   }
 
   def next(xy: Xy) = {
-    println("  " + xy + " " + directions.indexOf(xy))
     if (xy.equals(west) || directions.indexOf(xy) == -1)
       north
     else {

@@ -17,7 +17,7 @@ object View {
  * and relative position is calculated similarly relative to the bot
  * in the center of the view.
  */
-case class View(cells: String) {
+case class View(cells: String) extends Logging {
   val size = math.sqrt(cells.length()).intValue
   val center = Xy(size / 2, size / 2)
 
@@ -36,7 +36,7 @@ case class View(cells: String) {
     View.obstacles.exists(_ == cellAtRelPos(relPos))
 
   def offsetToNearestFood: Option[Xy] = {
-    println("Visible food items: " + View.food.map(offsetToNearest(_)))
+    log("Visible food items: " + View.food.map(offsetToNearest(_)))
 
     val items = View.food.flatMap(offsetToNearest(_))
     if (items.nonEmpty)
@@ -45,7 +45,7 @@ case class View(cells: String) {
   }
 
   def offsetToNearest(target: Char): Option[Xy] = {
-    println("Target: " + target)
+    log("Target: " + target)
 
     val relativePositions =
       cells

@@ -12,7 +12,7 @@ class ControlFunctionFactory {
   def create: (String => String) = new Bot().respond _
 }
 
-class Bot() {
+class Bot() extends Logging {
   // this method is invoked by the game server to interact with the plug-in.
   // The input will be a string of the format "Opcode(param=value,param=value,...)"
   // The output must be a string that is empty or also "Opcode(param=value,param=value,...)"
@@ -30,14 +30,14 @@ class Bot() {
   def approachTarget(view: View) =
     view.offsetToNearestFood match {
       case Some(offset) =>
-        println("Approaching.")
+        log("Approaching.")
         move(offset.signum, view)
       case None =>
         move(Xy.random, view)
     }
 
   def move(xy: Xy, view: View): String = {
-    println("Move: %s".format(xy))
+    log("Move: %s", xy)
 
     if (view.cellContainsObstacle(xy))
       move(Xy.next(xy), view)
