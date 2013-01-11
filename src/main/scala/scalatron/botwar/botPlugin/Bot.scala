@@ -13,18 +13,13 @@ class ControlFunctionFactory {
 }
 
 class Bot() extends Logging {
-  // this method is invoked by the game server to interact with the plug-in.
-  // The input will be a string of the format "Opcode(param=value,param=value,...)"
-  // The output must be a string that is empty or also "Opcode(param=value,param=value,...)"
-  def n = 0
 
   def respond(input: String): String = {
     val (opcode, paramMap) = CommandParser(input)
 
-    if (opcode.equals("React")) {
+    if (opcode.equals("React"))
       approachTarget(View(paramMap("view")))
-
-    } else ""
+    else ""
   }
 
   def approachTarget(view: View) =
@@ -37,10 +32,10 @@ class Bot() extends Logging {
     }
 
   def move(xy: Xy, view: View): String = {
-    log("Move: %s", xy)
+    log("Move: " + xy)
 
     if (view.cellContainsObstacle(xy))
-      move(Xy.next(xy), view)
+      move(Xy.random, view)
     else
       "Move(direction=%s:%s)".format(xy.x, xy.y)
   }
