@@ -29,6 +29,11 @@ case class View(cells: String) {
   def relPosFromIndex(index: Int) = relPosFromAbsPos(absPosFromIndex(index))
   def cellAtRelPos(relPos: Xy) = cells.charAt(indexFromRelPos(relPos))
 
+  def cellContainsObstacle(relPos: Xy) = {
+    val cell = cellAtRelPos(relPos)
+    cell == View.Wall || cell == View.Zorg
+  }
+
   def offsetToNearest(target: Char): Option[Xy] = {
 
     val relativePositions =

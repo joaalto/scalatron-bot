@@ -38,7 +38,7 @@ class Bot() {
 
   def move(xy: Xy, view: View): String = {
     println("Move: %s".format(xy))
-    if (view.cellAtRelPos(xy) == View.Wall) {
+    if (view.cellContainsObstacle(xy)) {
       move(Xy.next(xy), view)
     } else {
       "Move(direction=%s:%s)".format(xy.x, xy.y)
