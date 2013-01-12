@@ -6,9 +6,11 @@ object View {
   val Fluppet = 'B'
   val Zorg = 'b'
   val Wall = 'W'
+  val EnemyBot = 'm'
+  val EnemySlave = 's'
 
   val food = Seq(Zugar, Fluppet)
-  val obstacles = Seq(Zorg, Wall)
+  val obstacles = Seq(Zorg, Wall, EnemyBot, EnemySlave)
 }
 
 /**

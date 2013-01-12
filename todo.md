@@ -1,4 +1,3 @@
 # Todo
-* avoid walls while approaching targets
-* avoid other bots
+* random movement could be smarter?
 * fire missiles!
