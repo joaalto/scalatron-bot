@@ -10,7 +10,7 @@ object View {
   val EnemySlave = 's'
 
   val food = Seq(Zugar, Fluppet)
-  val obstacles = Seq(Zorg, Wall, EnemyBot, EnemySlave)
+  val obstacles = Seq(Zorg, Wall, EnemyBot, EnemySlave, Toxifera)
 }
 
 /**
