@@ -38,9 +38,9 @@ case class View(cells: String) extends Logging {
     View.obstacles.exists(_ == cellAtRelPos(relPos))
 
   def offsetToNearestFood: Option[Xy] = {
-    log("Visible food items: " + View.food.map(offsetToNearest(_)))
-
     val items = View.food.flatMap(offsetToNearest(_))
+    log("Nearest visible food items: " + items)
+
     if (items.nonEmpty)
       Option(items.minBy(_.length))
     else None
