@@ -11,16 +11,16 @@ object Build extends Build {
   val play = TaskKey[Unit]("play")
 
   val bot = Project(
-    id = "mybot",
+    id = "jbot",
     base = file("."),
     settings = Project.defaultSettings ++ botSettings)
 
   val botSettings = Seq[Setting[_]](
     organization := "scalatron.botwar.botPlugin",
-    name := "my-scalatron-bot",
+    name := "jbot",
     version := "1.0.0-SNAPSHOT",
 
-    scalaVersion := "2.9.1",
+    scalaVersion := "2.9.2",
     scalacOptions ++= Seq("-deprecation", "-unchecked"),
 
     javaOptions += "-Xmx1g",
