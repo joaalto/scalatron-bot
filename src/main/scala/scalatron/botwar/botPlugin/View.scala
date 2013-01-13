@@ -47,14 +47,11 @@ case class View(cells: String) extends Logging {
   }
 
   def offsetToNearest(target: Char): Option[Xy] = {
-    log("Target: " + target)
 
-    val relativePositions =
-      cells
-        .view
-        .zipWithIndex
-        .filter(_._1 == target)
-        .map(p => relPosFromIndex(p._2))
+    val relativePositions = for (
+      cellWithIndex <- cells.view.zipWithIndex;
+      if cellWithIndex._1 == target
+    ) yield relPosFromIndex(cellWithIndex._2)
 
     if (relativePositions.isEmpty)
       None
