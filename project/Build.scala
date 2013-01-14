@@ -23,8 +23,8 @@ object Build extends Build {
     scalaVersion := "2.9.2",
     scalacOptions ++= Seq("-deprecation", "-unchecked"),
 
-    javaOptions += "-Xmx1g",
-
+    javaOptions += "-Xmx1g -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005 ",
+    
     libraryDependencies ++= Seq(
       "org.specs2" %% "specs2" % "1.12.3" % "test",
       "org.pegdown" % "pegdown" % "1.0.2" % "test",
