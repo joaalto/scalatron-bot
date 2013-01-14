@@ -11,11 +11,11 @@ class BotSpec extends Specification
   "The bot" should {
     "respond by moving northwest" in {
       mybot.respond(command(plantAtIndex(6))) must
-        beEqualTo("Move(direction=-1:-1)")
+        beEqualTo("Move(direction=-1:-1)|Set(dir=-1:-1)")
     }
     "respond by moving southeast" in {
       mybot.respond(command(plantAtIndex(18))) must
-        beEqualTo("Move(direction=1:1)")
+        beEqualTo("Move(direction=1:1)|Set(dir=1:1)")
     }
     "avoid a wall" in {
       val view = viewStr(5).patch(16, "WWWWWW", 6)
