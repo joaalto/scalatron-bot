@@ -8,7 +8,8 @@ class Bot() extends Logging {
     val (opcode, paramMap) = CommandParser(input)
 
     if (opcode.equals("React")) {
-      approachTarget(paramMap).mkString("|")
+      //      approachTarget(paramMap).mkString("|")
+      approachTarget(paramMap)
     } else ""
   }
 
@@ -34,15 +35,12 @@ class Bot() extends Logging {
     }
   }
 
-  def move(xy: Xy, view: View): MutableList[String] = {
+  def move(xy: Xy, view: View): String = {
     log("Move: " + xy)
-    val commands = new MutableList[String]
-
     if (view.cellContainsObstacle(xy) || xy == Xy.zero)
       move(Xy.random, view)
     else {
-      commands += "Move(direction=%s:%s)".format(xy.x, xy.y)
-      commands += "Set(dir=%s:%s)".format(xy.x, xy.y)
+      "Move(direction=%1$s:%2$s)|Set(dir=%1$s:%2$s)".format(xy.x, xy.y)
     }
   }
 
