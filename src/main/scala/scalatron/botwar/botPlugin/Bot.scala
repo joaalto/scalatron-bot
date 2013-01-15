@@ -37,7 +37,7 @@ class Bot() extends Logging {
 
   def move(xy: Xy, view: View): String = {
     log("Move: " + xy)
-    if (view.cellContainsObstacle(xy) || xy == Xy.zero)
+    if (view.cellContainsObstacle(xy))
       move(Xy.random, view)
     else {
       "Move(direction=%1$s:%2$s)|Set(dir=%1$s:%2$s)".format(xy.x, xy.y)

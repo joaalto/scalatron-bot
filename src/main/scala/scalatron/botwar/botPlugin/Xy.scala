@@ -32,11 +32,14 @@ object Xy extends Logging {
     south,
     west)
 
-  def random() = {
+  def random(): Xy = {
     val random = new Random()
     val x = random.nextInt(3) - 1
     val y = random.nextInt(3) - 1
-    Xy(x, y)
+
+    if (Xy(x, y) == Xy.zero)
+      Xy.random
+    else Xy(x, y)
   }
 
   def next(xy: Xy) = {
