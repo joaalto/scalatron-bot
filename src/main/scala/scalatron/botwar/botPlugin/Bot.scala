@@ -6,14 +6,22 @@ class Bot() extends Logging {
 
   def respond(input: String): String = {
     val (opcode, paramMap) = CommandParser(input)
-
     if (opcode.equals("React")) {
-      //      approachTarget(paramMap).mkString("|")
-      approachTarget(paramMap)
+      seekTargets(paramMap) + launchBot(paramMap)
     } else ""
   }
 
-  def approachTarget(paramMap: Map[String, String]) = {
+  def launchBot(paramMap: Map[String, String]) = {
+    paramMap.get("time") match {
+      case Some(time) =>
+        if (time.toInt > 0 && time.toInt % 100 == 0) {
+          "|Spawn(direction=1:1,energy=100)"
+        } else ""
+      case None => ""
+    }
+  }
+
+  def seekTargets(paramMap: Map[String, String]) = {
     val view = View(paramMap("view"))
     view.offsetToNearestFood match {
       case Some(offset) =>
