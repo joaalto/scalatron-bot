@@ -12,13 +12,11 @@ class Bot() extends Logging {
   }
 
   def launchBot(paramMap: Map[String, String]) = {
-    paramMap.get("time") match {
-      case Some(time) =>
-        if (time.toInt > 0 && time.toInt % 100 == 0) {
-          "|Spawn(direction=1:1,energy=100)"
-        } else ""
-      case None => ""
-    }
+    val time = paramMap.get("time").map(_.toInt).
+      filter(t => t > 0 && t % 100 == 0)
+    if (time.nonEmpty)
+      "|Spawn(direction=1:1,energy=100)"
+    else ""
   }
 
   def seekTargets(paramMap: Map[String, String]) = {
@@ -35,7 +33,6 @@ class Bot() extends Logging {
     val view = View(paramMap("view"))
     paramMap.get("dir") match {
       case Some(direction) =>
-        log("Direction: " + direction)
         val xy = direction.split(":").map(_.toInt)
         move(Xy(xy(0), xy(1)), view)
       case None =>
@@ -44,7 +41,6 @@ class Bot() extends Logging {
   }
 
   def move(xy: Xy, view: View): String = {
-    log("Move: " + xy)
     if (view.cellContainsObstacle(xy))
       move(Xy.random, view)
     else {
