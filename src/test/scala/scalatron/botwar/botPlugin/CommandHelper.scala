@@ -12,4 +12,9 @@ trait CommandHelper extends ViewHelper {
 
   def command(viewStr: String) =
     "React(generation=0,name=mybot,time=5,view=" + viewStr + ")"
+
+  def miniBotCommand(viewStr: String) = {
+    val miniBotView = viewStr.patch(12, "S", 1)
+    command(miniBotView).replace("generation=0", "generation=2")
+  }
 }

@@ -22,11 +22,19 @@ class BotSpec extends Specification
     }
     "avoid a wall" in {
       val view = viewStr(5).patch(16, "WWWWWW", 6)
-      mybot.move(Xy(0, 1), View(view)) !== ("Move(direction=0:1)")
+      mybot.move(Xy(0, 1), View(view)) must not contain ("Move(direction=0:1)")
     }
     "avoid an enemy" in {
       val view = viewStr(5).patch(16, "bbbbbb", 6)
-      mybot.move(Xy(0, 1), View(view)) !== ("Move(direction=0:1)")
+      mybot.move(Xy(0, 1), View(view)) must not contain ("Move(direction=0:1)")
+    }
+  }
+
+  "A mini-bot" should {
+
+    "avoid another mini-bot" in {
+      val view = View(miniBotAtIndex(7))
+      mybot.move(Xy(0, -1), view) must not contain ("Move(direction=0:-1)")
     }
   }
 

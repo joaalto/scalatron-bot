@@ -36,7 +36,13 @@ case class View(cells: String) extends Logging {
   def cellAtRelPos(relPos: Xy) = cells.charAt(indexFromRelPos(relPos))
 
   def cellContainsObstacle(relPos: Xy) =
+    cellContainsDanger(relPos) || cellContainsMiniBot(relPos)
+
+  def cellContainsDanger(relPos: Xy) =
     View.obstacles.exists(_ == cellAtRelPos(relPos))
+
+  def cellContainsMiniBot(relPos: Xy) =
+    isMiniBot && cellAtRelPos(relPos) == View.Slave
 
   def isMiniBot = cellAtAbsPos(center) == View.Slave
 
