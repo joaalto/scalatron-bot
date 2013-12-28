@@ -77,4 +77,9 @@ class ViewSpec extends Specification with ViewHelper {
     }
   }
 
+  "Cell at center" should {
+    "be a mini-bot" in {
+      View(miniBotView).isMiniBot must beTrue
+    }
+  }
 }

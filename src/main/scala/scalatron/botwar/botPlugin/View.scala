@@ -8,6 +8,7 @@ object View {
   val Wall = 'W'
   val EnemyBot = 'm'
   val EnemySlave = 's'
+  val Slave = 'S'
 
   val food = Seq(Zugar, Fluppet)
   val obstacles = Seq(Zorg, Wall, EnemyBot, EnemySlave, Toxifera)
@@ -36,6 +37,8 @@ case class View(cells: String) extends Logging {
 
   def cellContainsObstacle(relPos: Xy) =
     View.obstacles.exists(_ == cellAtRelPos(relPos))
+
+  def isMiniBot = cellAtAbsPos(center) == View.Slave
 
   def offsetToNearestFood: Option[Xy] = {
     val items = View.food.flatMap(offsetToNearest(_))
