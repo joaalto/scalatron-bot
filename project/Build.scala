@@ -46,7 +46,7 @@ object Build extends Build {
         IO createDirectory (bots / name)
         IO copyFile (botJar, bots / name / "ScalatronBot.jar")
 
-        val cmd = "java %s -cp %s scalatron.main.Main -plugins %s" format (
+        val cmd = "java %s -cp %s scalatron.main.Main -secure yes -plugins %s" format (
           javaOptions mkString " ",
           Seq(ucp.files.head, botJar).absString,
           bots.absolutePath)
