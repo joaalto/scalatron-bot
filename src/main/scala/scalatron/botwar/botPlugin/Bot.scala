@@ -12,9 +12,8 @@ class Bot() extends Logging {
   }
 
   def launchBot(paramMap: Map[String, String]) = {
-    val time = paramMap.get("time").map(_.toInt).
-      filter(t => t > 0 && t % 100 == 0)
-    if (time.nonEmpty)
+    val energy = paramMap.get("energy").get.toInt
+    if (energy > 900)
       "|Spawn(direction=1:1,energy=100)"
     else ""
   }
