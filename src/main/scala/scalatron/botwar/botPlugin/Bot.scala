@@ -4,36 +4,61 @@ import scala.collection.mutable.MutableList
 
 class Bot() extends Logging {
 
+  type Params = Map[String, String]
+
   def respond(input: String): String = {
-    val (opcode, paramMap) = CommandParser(input)
+    val (opcode, params) = CommandParser(input)
     if (opcode.equals("React")) {
-      seekTargets(paramMap) + launchBot(paramMap)
+      if (minibotFull(params))
+        headHome(params)
+      else
+        seekTargets(params) + launchBot(params)
     } else ""
   }
 
-  def launchBot(paramMap: Map[String, String]) = {
-    val energy = paramMap.get("energy").get.toInt
-    if (energy > 900)
+  def headHome(params: Params) = {
+    val masterPos = params("master")
+    val view = View(params("view"))
+    move(xy(masterPos).signum, view) +
+      "|DrawLine(to=" + masterPos + ")"
+  }
+
+  def launchBot(params: Params) = {
+    if (!isMiniBot(params) && energy(params) > 900)
       "|Spawn(direction=1:1,energy=100)"
     else ""
   }
 
-  def seekTargets(paramMap: Map[String, String]) = {
-    val view = View(paramMap("view"))
+  def minibotFull(params: Params) =
+    isMiniBot(params) && energy(params) > 3000
+
+  def energy(params: Params) = params("energy").toInt
+
+  def isMiniBot(params: Params) =
+    params("generation").toInt > 0
+
+  def seekTargets(params: Params) = {
+    val view = View(params("view"))
     view.offsetToNearestFood match {
-      case Some(offset) =>
+      case Some(offset) => {
+        log("offset: " + offset)
         move(offset.signum, view)
+      }
       case None =>
-        random(paramMap)
+        random(params)
     }
   }
 
-  def random(paramMap: Map[String, String]) = {
-    val view = View(paramMap("view"))
-    paramMap.get("dir") match {
+  def xy(direction: String) = {
+    val xy = direction.split(":").map(_.toInt)
+    Xy(xy(0), xy(1))
+  }
+
+  def random(params: Params) = {
+    val view = View(params("view"))
+    params.get("dir") match {
       case Some(direction) =>
-        val xy = direction.split(":").map(_.toInt)
-        move(Xy(xy(0), xy(1)), view)
+        move(xy(direction), view)
       case None =>
         move(Xy.random, view)
     }

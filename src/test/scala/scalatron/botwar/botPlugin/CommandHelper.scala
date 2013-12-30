@@ -11,10 +11,11 @@ trait CommandHelper extends ViewHelper {
     viewStr(viewRowLength) + ")"
 
   def command(viewStr: String) =
-    "React(generation=0,name=mybot,time=5,view=" + viewStr + ")"
+    "React(generation=0,energy=1001,name=mybot,time=5,view=" + viewStr + ")"
 
   def miniBotCommand(viewStr: String) = {
     val miniBotView = viewStr.patch(12, "S", 1)
-    command(miniBotView).replace("generation=0", "generation=2")
+    command(miniBotView).replace("generation=0", "generation=2").
+      patch(6, "master=2:0,", 0)
   }
 }

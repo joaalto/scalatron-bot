@@ -26,7 +26,9 @@ object Build extends Build {
     javaOptions += "-Xmx1g -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005 ",
     
     libraryDependencies ++= Seq(
-      "org.specs2" %% "specs2" % "1.12.3" % "test",
+      "org.specs2" %% "specs2" % "1.12.3" % "test" withSources,
+      "org.mockito" % "mockito-all" % "1.9.0" % "test" withSources,
+      "org.hamcrest" % "hamcrest-all" % "1.3" % "test" withSources,
       "org.pegdown" % "pegdown" % "1.0.2" % "test",
       "junit" % "junit" % "4.7" % "test"),
 
